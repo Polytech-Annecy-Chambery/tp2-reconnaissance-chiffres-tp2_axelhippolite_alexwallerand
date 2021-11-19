@@ -47,8 +47,15 @@ class Image:
     #   on retourne une nouvelle image binarisee
     #==============================================================================
     def binarisation(self, S):
-        pass
-
+        binaryImage = Image()
+        binaryImage.set_pixels(np.zeros((self.H, self.W), dtype=np.uint8))
+        for i in range(self.H):
+            for j in range(self.W):
+                if self.pixels[i][j] > S:
+                    binaryImage.pixels[i][j] = 255
+                else:
+                    binaryImage.pixels[i][j] = 0
+        return binaryImage
 
     #==============================================================================
     # Dans une image binaire contenant une forme noire sur un fond blanc
@@ -59,18 +66,31 @@ class Image:
     #   on retourne une nouvelle image recadree
     #==============================================================================
     def localisation(self):
-        pass
+        locImage = Image()
+        wmin = min(np.where(self.pixels==0)[1])
+        wmax = max(np.where(self.pixels==0)[1])
+        hmin = min(np.where(self.pixels==0)[0])
+        hmax = max(np.where(self.pixels==0)[0])
+        locImage.set_pixels(self.pixels[hmin:(hmax+1),wmin:(wmax+1)])
+        return locImage
 
     #==============================================================================
     # Methode de redimensionnement d'image
     #==============================================================================
     def resize(self, new_H, new_W):
-        pass
-
+        resizeImage = Image()
+        new = resize(self.pixels, (new_H, new_W), 0)
+        resizeImage.set_pixels(np.uint8(new*255))
+        return resizeImage
 
     #==============================================================================
     # Methode de mesure de similitude entre l'image self et un modele im
     #==============================================================================
     def similitude(self, im):
-        pass
+        same = 0
+        for i in range(self.H):
+            for j in range(self.W):
+                if self.pixels[i,j] == im.pixels[i,j]:
+                    same += 1
+        return same/(self.W*self.H)
 
