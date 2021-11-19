@@ -24,7 +24,7 @@ if __name__ == '__main__':
     # Lecture image et affichage
     #==============================================================================
     image = Image()
-    image.load(path_to_assets + 'test2.JPG')
+    image.load(path_to_assets + 'test1.JPG')
     image.display("Exemple d'image")
 
     #==============================================================================
@@ -43,12 +43,12 @@ if __name__ == '__main__':
     #==============================================================================
     # Redimensionnement de l'image et affichage
     #==============================================================================
-    image_resizee = image_localisee.resize(100, 500)
+    image_resizee = image_localisee.resize(32, 32)
     image_resizee.display("Image redimensionee")
 
     #==============================================================================
     # Lecture modeles et reconnaissance
     #==============================================================================
     liste_modeles = lecture_modeles(path_to_assets)
-    chiffre = reconnaissance_chiffre(image, liste_modeles, 70)
+    chiffre = reconnaissance_chiffre(image, liste_modeles, S)
     print("Le chiffre reconnu est : ", chiffre)
